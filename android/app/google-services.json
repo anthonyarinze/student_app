@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "126855660825",
+    "project_id": "smart-study-84b40",
+    "storage_bucket": "smart-study-84b40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126855660825:android:8ddd198c6c8333653c7188",
+        "android_client_info": {
+          "package_name": "com.example.student_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126855660825-echm3kjiqastmltg3r2u9q2vo0dm785e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnKcx5uL5rmZ322ijlilQSYDM77lwylG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126855660825-echm3kjiqastmltg3r2u9q2vo0dm785e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

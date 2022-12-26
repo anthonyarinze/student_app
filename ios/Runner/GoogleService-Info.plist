@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>126855660825-jlgq2d6dn2ddghlqm2vuuemmm8m7vq84.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.126855660825-jlgq2d6dn2ddghlqm2vuuemmm8m7vq84</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCaURvop3YNcgKG08ijgh98oR5bACrGu4k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>126855660825</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.studentApp</string>
+	<key>PROJECT_ID</key>
+	<string>smart-study-84b40</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smart-study-84b40.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:126855660825:ios:656ac2db6d7c2adb3c7188</string>
+</dict>
+</plist>
