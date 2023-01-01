@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/login.dart';
 import 'package:student_app/utils/palette.dart';
@@ -25,6 +26,26 @@ class _SignUpState extends State<SignUp> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future signUp() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (except) {
+      AlertDialog(
+        title: const Text("Error"),
+        content: Text(except.message.toString()),
+      );
+    }
   }
 
   @override
@@ -103,7 +124,9 @@ class _SignUpState extends State<SignUp> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    //TODO: Add Functionality;
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                       Palette.kLightButtonColor,

@@ -95,6 +95,7 @@ class _LoginState extends State<Login> {
                           onChanged: (value) {
                             setState(() {
                               rememberMe = !rememberMe;
+                              //TODO: Add Functionality
                             });
                           }),
                       const Text(
@@ -129,7 +130,9 @@ class _LoginState extends State<Login> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //TODO: Add Functionality
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                       Palette.kLightButtonColor,

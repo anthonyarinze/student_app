@@ -74,7 +74,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //TODO: Add Functionality
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                       Palette.kLightButtonColor,
