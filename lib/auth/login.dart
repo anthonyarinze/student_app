@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/auth/forgot_password.dart';
 import 'package:student_app/auth/signup.dart';
+import 'package:student_app/utils/firebase_services.dart';
+import '../pages/master.dart';
 import '../utils/palette.dart';
 import '../utils/widgets.dart';
 
@@ -15,6 +18,35 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMe = false;
+
+  Future signin() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Master(),
+        ),
+      );
+    } on FirebaseAuthException catch (exception) {
+      AlertDialog(
+        title: const Text("Error"),
+        content: Text(exception.message.toString()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,44 +116,25 @@ class _LoginState extends State<Login> {
                 obscureText: true),
 
             //Remember me & Forgot Password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  child: Row(
-                    children: [
-                      Checkbox(
-                          value: rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              rememberMe = !rememberMe;
-                              //TODO: Add Functionality
-                            });
-                          }),
-                      const Text(
-                        'Remember me',
-                        style: TextStyle(fontSize: 19),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ForgotPassword(),
                       ),
-                    ],
+                    );
+                  },
+                  child: Text(
+                    'Forgot password?',
+                    style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ForgotPassword()));
-                    },
-                    child: Text(
-                      'Forgot password?',
-                      style:
-                          TextStyle(fontSize: 18, color: Colors.grey.shade700),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             //Sign up button
             Padding(
@@ -132,6 +145,7 @@ class _LoginState extends State<Login> {
                 child: TextButton(
                   onPressed: () {
                     //TODO: Add Functionality
+                    signin();
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
@@ -190,7 +204,9 @@ class _LoginState extends State<Login> {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseServices().signInWithGoogle();
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFFfdfdfd),
                     shape: RoundedRectangleBorder(
