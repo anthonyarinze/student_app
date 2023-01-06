@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/auth/login.dart';
+import 'package:student_app/pages/master.dart';
 import 'package:student_app/utils/palette.dart';
-
 import '../utils/widgets.dart';
 
 class SignUp extends StatefulWidget {
@@ -124,8 +124,14 @@ class _SignUpState extends State<SignUp> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  onPressed: () async {
-                    //TODO: Add Functionality;
+                  onPressed: () {
+                    signUp();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Master(),
+                      ),
+                    );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
