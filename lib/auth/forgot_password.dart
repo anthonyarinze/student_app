@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:student_app/auth/reset_email_sent.dart';
 import 'package:student_app/utils/widgets.dart';
 import '../utils/palette.dart';
 
@@ -74,8 +76,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  onPressed: () {
-                    //TODO: Add Functionality
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                    try {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                        email: emailController.text.trim(),
+                      );
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ResetComplete(),
+                        ),
+                      );
+                    } on FirebaseException catch (except) {
+                      AlertDialog(
+                        title: const Text('Error'),
+                        content: Text(
+                          except.message.toString(),
+                        ),
+                      );
+                    }
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

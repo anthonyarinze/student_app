@@ -6,4 +6,5 @@ class Palette {
   static const Color kLightThemeColor = Color(0xFF333e97);
   static const Color kLightThemeColorAccent = Color(0xFF7b85cf);
   static const Color kLightSelectedColor = Color(0xFFea4d90);
+  static const Color kAquaponicsThemeColor = Color(0xFF26005f);
 }
