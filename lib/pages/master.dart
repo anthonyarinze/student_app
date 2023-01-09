@@ -24,45 +24,48 @@ class _MasterState extends State<Master> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Container(
-        color: Palette.kLightThemeColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          child: GNav(
-            gap: 8.0,
-            padding: const EdgeInsets.all(16.0),
-            activeColor: Colors.white,
-            tabBackgroundColor: Palette.kLightThemeColorAccent,
-            textStyle: const TextStyle(color: Colors.white),
-            onTabChange: (value) {
-              setState(() {
-                index = value;
-              });
-            },
-            tabs: const [
-              GButton(
-                  icon: Icons.home_rounded,
-                  text: 'Home',
-                  iconColor: Colors.white),
-              GButton(
-                  icon: Icons.calendar_month_rounded,
-                  text: 'Calendar',
-                  iconColor: Colors.white),
-              GButton(
-                  icon: Icons.calculate_rounded,
-                  text: 'Metrics',
-                  iconColor: Colors.white),
-              GButton(
-                  icon: Icons.person_rounded,
-                  text: 'Profile',
-                  iconColor: Colors.white),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: Container(
+          color: Palette.kLightThemeColor,
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+            child: GNav(
+              gap: 8.0,
+              padding: const EdgeInsets.all(16.0),
+              activeColor: Colors.white,
+              tabBackgroundColor: Palette.kLightThemeColorAccent,
+              textStyle: const TextStyle(color: Colors.white),
+              onTabChange: (value) {
+                setState(() {
+                  index = value;
+                });
+              },
+              tabs: const [
+                GButton(
+                    icon: Icons.home_rounded,
+                    text: 'Home',
+                    iconColor: Colors.white),
+                GButton(
+                    icon: Icons.calendar_month_rounded,
+                    text: 'Calendar',
+                    iconColor: Colors.white),
+                GButton(
+                    icon: Icons.calculate_rounded,
+                    text: 'Metrics',
+                    iconColor: Colors.white),
+                GButton(
+                    icon: Icons.person_rounded,
+                    text: 'Profile',
+                    iconColor: Colors.white),
+              ],
+            ),
           ),
         ),
+        body: screens[index],
       ),
-      body: screens[index],
     );
   }
 }
