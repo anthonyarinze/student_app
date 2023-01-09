@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/auth/reset_email_sent.dart';
+import 'package:student_app/pages/master.dart';
 import 'package:student_app/utils/firebase_options.dart';
 
 void main() async {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ResetComplete(),
+      home: const Master(),
     );
   }
 }
