@@ -5,11 +5,12 @@ import 'package:student_app/auth/login.dart';
 import 'package:student_app/pages/master.dart';
 import 'package:student_app/utils/firebase_options.dart';
 
-void main() async {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
