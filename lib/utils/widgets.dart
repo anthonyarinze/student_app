@@ -50,3 +50,12 @@ class BuildTextFormField extends StatelessWidget {
     );
   }
 }
+
+class BuildClassWidget extends StatelessWidget {
+  const BuildClassWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
