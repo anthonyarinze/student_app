@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/utils/palette.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
 
             //Search Bar
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -61,7 +62,6 @@ class _HomeState extends State<Home> {
                       height: 55,
                       width: MediaQuery.of(context).size.width / 1.5,
                       decoration: const BoxDecoration(
-                        //gradient: /*TODO: Gradient*/
                         borderRadius: BorderRadius.all(
                           Radius.circular(20),
                         ),
@@ -69,21 +69,24 @@ class _HomeState extends State<Home> {
                       child: TextField(
                         autocorrect: false,
                         controller: controller,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Search',
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Palette.kLightThemeColor),
+                          ),
+                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.grey.shade100,
+                              color: Colors.pink,
                               width: 1.0,
                             ),
-                            borderRadius: const BorderRadius.all(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
-                          hintStyle: const TextStyle(),
-                          suffixIcon: const Icon(Icons.search),
+                          hintStyle: TextStyle(),
+                          suffixIcon: Icon(Icons.search),
                         ),
                       ),
                     ),
@@ -93,9 +96,9 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        Icons.sort,
-                        size: 30,
-                        color: Colors.black,
+                        Icons.filter_alt_outlined,
+                        size: 35,
+                        color: Palette.kLightThemeColor,
                       ),
                     ),
                   ),
@@ -104,13 +107,22 @@ class _HomeState extends State<Home> {
             ),
 
             //Your Classes
-            Row(
-              children: const [
-                Text(
-                  'Your Classes',
-                  style: TextStyle(fontSize: 22),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'Your Classes',
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  Text(
+                    'See all',
+                    style: TextStyle(
+                        fontSize: 16, color: Palette.kLightThemeColor),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
