@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/utils/palette.dart';
+import 'package:student_app/utils/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -106,7 +107,7 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            //Your Classes
+            //Your Classes & See all
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),
               child: Row(
@@ -124,6 +125,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+            BuildClassWidget(),
           ],
         ),
       ),

@@ -52,10 +52,31 @@ class BuildTextFormField extends StatelessWidget {
 }
 
 class BuildClassWidget extends StatelessWidget {
-  const BuildClassWidget({super.key});
+  BuildClassWidget({super.key});
+
+  final List colors = [
+    const Color(0xFF499a9f),
+    const Color(0xFF41659a),
+    const Color(0xFFa53f7e),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 90,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          color: Colors.green,
+          border: Border(
+            left: BorderSide(
+              color: Colors.pink,
+              width: 10,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
