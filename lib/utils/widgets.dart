@@ -54,7 +54,7 @@ class BuildTextFormField extends StatelessWidget {
 class BuildClassWidget extends StatelessWidget {
   BuildClassWidget({super.key});
 
-  final List colors = [
+  final List<Color> colors = [
     const Color(0xFF499a9f),
     const Color(0xFF41659a),
     const Color(0xFFa53f7e),
@@ -65,14 +65,50 @@ class BuildClassWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 90,
+        height: 110,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          color: Colors.green,
+        decoration: BoxDecoration(
+          color: colors[0].withOpacity(0.6),
           border: Border(
             left: BorderSide(
-              color: Colors.pink,
-              width: 10,
+              color: colors[0],
+              width: 5,
+            ),
+          ),
+        ),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12.0, 8.0, 5.0, 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Law Class',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.7),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const Text(
+                  'Second Quiz',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  '09:00 - 10:00',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.7),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
