@@ -51,6 +51,39 @@ class BuildTextFormField extends StatelessWidget {
   }
 }
 
+class BuildSearchBar extends StatelessWidget {
+  const BuildSearchBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      width: size.width * 0.8,
+      decoration: BoxDecoration(
+        color: Palette.kLightThemeColor.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: const TextField(
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'Search',
+          hintStyle: TextStyle(
+            color: Palette.kLightThemeColor,
+            fontSize: 18,
+          ),
+          suffixIcon: Icon(
+            Icons.search_outlined,
+            size: 28,
+            color: Palette.kLightThemeColor,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class BuildClassWidget extends StatelessWidget {
   BuildClassWidget({super.key});
 
@@ -125,6 +158,8 @@ Future<void> _dialogBuilder(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        elevation: 2.0,
+        scrollable: true,
         title: const Text('Basic dialog title'),
         content: const Text('A dialog is a type of modal window that\n'
             'appears in front of app content to\n'

@@ -53,60 +53,22 @@ class _HomeState extends State<Home> {
 
             //Search Bar
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      height: 55,
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: TextField(
-                        autocorrect: false,
-                        controller: controller,
-                        decoration: const InputDecoration(
-                          hintText: 'Search',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Palette.kLightThemeColor),
-                          ),
-                          contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.pink,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                          ),
-                          hintStyle: TextStyle(),
-                          suffixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.filter_alt_outlined,
-                        size: 35,
-                        color: Palette.kLightThemeColor,
-                      ),
+                  const BuildSearchBar(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.filter_alt_outlined,
+                      size: 30,
+                      color: Palette.kLightThemeColor,
                     ),
                   ),
                 ],
               ),
             ),
-
             //Your Classes & See all
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),
