@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/utils/palette.dart';
+import 'package:student_app/theme/palette.dart';
+import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -39,6 +40,12 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 children: [
+                  IconButton(
+                    onPressed: () => ThemeService().switchTheme(),
+                    icon: const Icon(
+                      Icons.nightlight,
+                    ),
+                  ),
                   const Text(
                     'Good ',
                     style: TextStyle(fontSize: 21),
