@@ -4,7 +4,7 @@ import 'package:student_app/auth/forgot_password.dart';
 import 'package:student_app/auth/signup.dart';
 import 'package:student_app/utils/firebase_services.dart';
 import '../pages/master.dart';
-import '../utils/palette.dart';
+import '../theme/palette.dart';
 import '../utils/widgets.dart';
 
 class Login extends StatefulWidget {

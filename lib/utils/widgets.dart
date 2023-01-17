@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/utils/palette.dart';
+import 'package:student_app/theme/palette.dart';
 
 class BuildTextFormField extends StatelessWidget {
   const BuildTextFormField({

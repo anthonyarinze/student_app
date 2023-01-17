@@ -4,7 +4,7 @@ import 'package:student_app/pages/calendar.dart';
 import 'package:student_app/pages/home.dart';
 import 'package:student_app/pages/metric.dart';
 import 'package:student_app/pages/profile.dart';
-import 'package:student_app/utils/palette.dart';
+import 'package:student_app/theme/palette.dart';
 
 class Master extends StatefulWidget {
   const Master({super.key});

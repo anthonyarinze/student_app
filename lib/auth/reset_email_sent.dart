@@ -1,6 +1,6 @@
 import 'package:student_app/auth/forgot_password.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/utils/palette.dart';
+import 'package:student_app/theme/palette.dart';
 
 import 'login.dart';
 

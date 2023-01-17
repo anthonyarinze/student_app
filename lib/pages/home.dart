@@ -26,6 +26,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add, size: 32),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -62,13 +66,14 @@ class _HomeState extends State<Home> {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.filter_alt_outlined,
-                      size: 30,
+                      size: 32,
                       color: Palette.kLightThemeColor,
                     ),
                   ),
                 ],
               ),
             ),
+
             //Your Classes & See all
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),

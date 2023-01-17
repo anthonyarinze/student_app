@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/auth/reset_email_sent.dart';
 import 'package:student_app/utils/widgets.dart';
-import '../utils/palette.dart';
+import '../theme/palette.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
