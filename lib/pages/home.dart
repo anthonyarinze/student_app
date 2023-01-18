@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
+import 'package:student_app/utils/notif_services.dart';
 import 'package:student_app/utils/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -11,6 +12,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var notifyHelper;
+  @override
+  void initState() {
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.requestIOSPermissions();
+  }
+
   TextEditingController controller = TextEditingController();
   String greeting() {
     var hour = DateTime.now().hour;
