@@ -1,5 +1,7 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
@@ -13,6 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DateTime selectedDate = DateTime.now();
   var notifyHelper;
   @override
   void initState() {
@@ -39,7 +42,8 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        backgroundColor: Palette.kLightThemeColor,
+        onPressed: () => Get.to(() => const AddTaskPage()),
         child: const Icon(Icons.add, size: 32),
       ),
       body: SingleChildScrollView(
@@ -51,6 +55,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 children: [
+                  //Theme Switch
                   IconButton(
                     onPressed: () {
                       ThemeService().switchTheme();
@@ -82,24 +87,26 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            //Search Bar
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const BuildSearchBar(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.filter_alt_outlined,
-                      size: 32,
-                      color: Palette.kLightThemeColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // //Search Bar
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       const BuildSearchBar(),
+            //       IconButton(
+            //         onPressed: () {},
+            //         icon: const Icon(
+            //           Icons.filter_alt_outlined,
+            //           size: 32,
+            //           color: Palette.kLightThemeColor,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            _addDateBar(),
 
             //Your Classes & See all
             Padding(
@@ -122,6 +129,38 @@ class _HomeState extends State<Home> {
             BuildClassWidget(),
           ],
         ),
+      ),
+    );
+  }
+
+  Container _addDateBar() {
+    // ignore: avoid_unnecessary_containers
+    return Container(
+      child: DatePicker(
+        DateTime.now(),
+        height: 100,
+        width: 80,
+        initialSelectedDate: DateTime.now(),
+        selectionColor: Palette.kLightThemeColor,
+        selectedTextColor: Colors.white,
+        dateTextStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        dayTextStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        monthTextStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        onDateChange: (date) {
+          selectedDate = date;
+        },
       ),
     );
   }

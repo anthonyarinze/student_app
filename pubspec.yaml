@@ -28,6 +28,7 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   flutter_native_timezone: ^2.0.0
   date_picker_timeline: ^1.2.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
