@@ -1,13 +1,17 @@
+// ignore_for_file: depend_on_referenced_packages, unused_import
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class NotifyHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   initializeNotification() async {
-    //tz.initializeTimeZones();
+    tz.initializeTimeZones();
     final DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
       requestSoundPermission: false,
@@ -31,7 +35,9 @@ class NotifyHelper {
   }
 
   displayNotification({required String title, required String body}) async {
-    print("Testing");
+    print(
+      Get.isDarkMode ? "Activated Light Mode" : "Activated Dark Mode",
+    );
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       'Your Channel ID',
       'Your Channel Name',
@@ -46,8 +52,8 @@ class NotifyHelper {
     );
     await flutterLocalNotificationsPlugin.show(
       0,
-      "You changed your theme",
-      "You chnged your theme back!",
+      title,
+      body,
       platformChannelSpecifics,
       payload: 'Default_Sound',
     );
@@ -73,6 +79,25 @@ class NotifyHelper {
           badge: true,
           sound: true,
         );
+  }
+
+  scheduledNotification() async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      0,
+      'Scheduled title',
+      'Theme changed 5 seconds ago',
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'Your channel id',
+          'Your channel name',
+          channelDescription: 'Your channel description',
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   Future onDidReceiveLocalNotification(

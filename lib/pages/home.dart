@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
     notifyHelper.requestIOSPermissions();
   }
 
@@ -50,7 +52,16 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () => ThemeService().switchTheme(),
+                    onPressed: () {
+                      ThemeService().switchTheme();
+                      notifyHelper.displayNotification(
+                        title: "Theme Changed",
+                        body: Get.isDarkMode
+                            ? "Activated Light Mode"
+                            : "Activated Dark Mode",
+                      );
+                      notifyHelper.scheduledNotification();
+                    },
                     icon: const Icon(
                       Icons.nightlight,
                     ),
