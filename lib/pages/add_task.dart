@@ -12,12 +12,14 @@ class AddTaskPage extends StatefulWidget {
 
 class _AddTaskPageState extends State<AddTaskPage> {
   DateTime _selectedDate = DateTime.now();
+  String _endTime = "9:30 PM";
+  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: _appbar(context),
+        appBar: _appbar(),
         body: Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
@@ -47,6 +49,41 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     },
                   ),
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: MyInputField(
+                        title: "Start Time",
+                        hint: _startTime,
+                        widget: IconButton(
+                          icon: const Icon(
+                            Icons.access_time_rounded,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            _getTimeFromUser(isStartTime: true);
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: MyInputField(
+                        title: "End Time",
+                        hint: _endTime,
+                        widget: IconButton(
+                          icon: const Icon(
+                            Icons.access_time_rounded,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            _getTimeFromUser(isStartTime: false);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -70,7 +107,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     } else {}
   }
 
-  _appbar(BuildContext context) {
+  _appbar() {
     return AppBar(
       elevation: 0,
       backgroundColor: context.theme.backgroundColor,
@@ -85,6 +122,37 @@ class _AddTaskPageState extends State<AddTaskPage> {
       actions: const [
         CircleAvatar(),
       ],
+    );
+  }
+
+  _getTimeFromUser({required bool isStartTime}) async {
+    var pickedTime = await _showTimePicker();
+    String formattedTime = pickedTime.format(context);
+    if (pickedTime == null) {
+      print("Time Canceled");
+    } else if (isStartTime == true) {
+      setState(() {
+        _startTime = formattedTime;
+      });
+    } else if (isStartTime == false) {
+      setState(() {
+        _endTime = formattedTime;
+      });
+    }
+  }
+
+  _showTimePicker() {
+    return showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+      initialTime: TimeOfDay(
+        hour: int.parse(
+          _startTime.split(":")[0],
+        ),
+        minute: int.parse(
+          _startTime.split(":")[1].split(" ")[0],
+        ),
+      ),
     );
   }
 }
