@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:student_app/controllers/task_controller.dart';
+import 'package:student_app/models/model.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/utils/widgets.dart';
 
@@ -12,6 +14,8 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TaskController _taskController = Get.put(TaskController());
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
@@ -302,7 +306,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
-      //Add to database
+      _addTaskToDb();
       Get.back();
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar(
@@ -313,5 +317,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
         icon: const Icon(Icons.warning_amber_rounded),
       );
     }
+  }
+
+  _addTaskToDb() async {
+    await _taskController.addTask(
+      task: Task(
+        note: _noteController.text,
+        title: _titleController.text,
+        date: DateFormat.yMd().format(_selectedDate),
+        startTime: _startTime,
+        endTime: _endTime,
+        remind: _selectedRemind,
+        repeat: _selectedRepeat,
+        color: _selectedColor,
+        isCompleted: 0,
+      ),
+    );
   }
 }

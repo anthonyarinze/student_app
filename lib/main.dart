@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:student_app/auth/login.dart';
+import 'package:student_app/db/db_helper.dart';
 import 'package:student_app/pages/master.dart';
 import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
@@ -11,6 +12,7 @@ import 'package:student_app/utils/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DBHelper.initDb();
   await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
