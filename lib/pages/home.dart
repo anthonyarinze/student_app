@@ -5,7 +5,6 @@ import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
-import 'package:student_app/utils/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -44,7 +43,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Palette.kLightThemeColor,
         onPressed: () => Get.to(() => const AddTaskPage()),
-        child: const Icon(Icons.add, size: 32),
+        child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -116,17 +115,22 @@ class _HomeState extends State<Home> {
                 children: const [
                   Text(
                     'Your Classes',
-                    style: TextStyle(fontSize: 22),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     'See all',
                     style: TextStyle(
-                        fontSize: 16, color: Palette.kLightThemeColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
             ),
-            BuildClassWidget(),
+            //BuildClassWidget(),
           ],
         ),
       ),

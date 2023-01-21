@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:student_app/theme/palette.dart';
 import 'package:student_app/utils/widgets.dart';
 
 class AddTaskPage extends StatefulWidget {
@@ -11,14 +12,24 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
+
   DateTime _selectedDate = DateTime.now();
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+
+  int _selectedRemind = 5;
+  List<int> remindList = [5, 10, 15, 20];
+
+  String _selectedRepeat = "None";
+  List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
+
+  int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: _appbar(),
         body: Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -34,8 +45,16 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const MyInputField(title: 'Title', hint: 'Enter your title'),
-                const MyInputField(title: 'Note', hint: 'Enter your note'),
+                MyInputField(
+                  title: 'Title',
+                  hint: 'Enter your title',
+                  controller: _titleController,
+                ),
+                MyInputField(
+                  title: 'Note',
+                  hint: 'Enter your note',
+                  controller: _noteController,
+                ),
                 MyInputField(
                   title: 'Date',
                   hint: DateFormat.yMd().format(_selectedDate),
@@ -84,11 +103,137 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ),
                   ],
                 ),
+                MyInputField(
+                  title: 'Remind',
+                  hint: "$_selectedRemind minutes early",
+                  widget: DropdownButton(
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.grey,
+                    ),
+                    iconSize: 32,
+                    elevation: 4,
+                    underline: Container(height: 0),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                    items: remindList.map<DropdownMenuItem<String>>(
+                      (int value) {
+                        return DropdownMenuItem<String>(
+                          value: value.toString(),
+                          child: Text(value.toString()),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedRemind = int.parse(value!);
+                      });
+                    },
+                  ),
+                ),
+                MyInputField(
+                  title: 'Repeat',
+                  hint: _selectedRepeat,
+                  widget: DropdownButton(
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.grey,
+                    ),
+                    iconSize: 32,
+                    elevation: 4,
+                    underline: Container(height: 0),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                    items: repeatList.map<DropdownMenuItem<String>>(
+                      (value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedRepeat = value!;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _colorPalette(),
+                    MyButton(
+                      title: 'Create task',
+                      onTap: () => _validateData(),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Column _colorPalette() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Color',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Get.isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Wrap(
+          children: List<Widget>.generate(
+            3,
+            (index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedColor = index;
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: index == 0
+                        ? Palette().taskColors[0]
+                        : index == 1
+                            ? Palette().taskColors[1]
+                            : Palette().taskColors[2],
+                    child: _selectedColor == index
+                        ? const Icon(
+                            Icons.done,
+                            color: Colors.white,
+                            size: 16,
+                          )
+                        : Container(),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -110,7 +255,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _appbar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: context.theme.backgroundColor,
       leading: GestureDetector(
         onTap: () => Get.back(),
         child: Icon(
@@ -154,5 +298,20 @@ class _AddTaskPageState extends State<AddTaskPage> {
         ),
       ),
     );
+  }
+
+  _validateData() {
+    if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
+      //Add to database
+      Get.back();
+    } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
+      Get.snackbar(
+        "Required",
+        "All fields are required",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        icon: const Icon(Icons.warning_amber_rounded),
+      );
+    }
   }
 }

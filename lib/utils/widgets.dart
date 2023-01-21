@@ -269,3 +269,35 @@ class MyInputField extends StatelessWidget {
     );
   }
 }
+
+class MyButton extends StatelessWidget {
+  final String title;
+  final Function() onTap;
+
+  const MyButton({super.key, required this.title, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 45,
+        width: 120,
+        decoration: BoxDecoration(
+          color: Palette.kLightThemeColor,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
