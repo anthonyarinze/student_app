@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:student_app/auth/login.dart';
 import 'package:student_app/db/db_helper.dart';
+import 'package:student_app/pages/home.dart';
 import 'package:student_app/pages/master.dart';
 import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeService().theme,
-      home: const MainPage(),
+      home: const Home(),
     );
   }
 }

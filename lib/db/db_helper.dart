@@ -23,7 +23,7 @@ class DBHelper {
             "title STRING, note TEXT, date STRING, "
             "startTime STRING, endTime STRING, "
             "remind INTEGER, repeat STRING, "
-            "color INTEGER"
+            "color INTEGER, "
             "isCompleted INTEGER)",
           );
         },
@@ -36,5 +36,14 @@ class DBHelper {
   static Future<int> insert(Task? task) async {
     print("Insert function called");
     return await _db?.insert(_tableName, task!.toJSON()) ?? 1;
+  }
+
+  static Future<List<Map<String, dynamic>>> query() async {
+    print("Query function called");
+    return await _db!.query(_tableName);
+  }
+
+  static delete(Task task) async {
+    return await _db?.delete(_tableName, where: 'id=?', whereArgs: [task.id]);
   }
 }

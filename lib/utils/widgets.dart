@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_app/theme/palette.dart';
 
+import '../models/model.dart';
+
 class BuildTextFormField extends StatelessWidget {
   const BuildTextFormField({
     Key? key,
@@ -299,5 +301,15 @@ class MyButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TaskTile extends StatelessWidget {
+  final Task? task;
+  const TaskTile({super.key, this.task});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

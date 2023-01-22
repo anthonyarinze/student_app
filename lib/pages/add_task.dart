@@ -34,7 +34,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _appbar(),
         body: Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
@@ -42,11 +41,27 @@ class _AddTaskPageState extends State<AddTaskPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Add Task",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Get.back(),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: 20,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Add Task",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 MyInputField(
@@ -256,23 +271,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
     } else {}
   }
 
-  _appbar() {
-    return AppBar(
-      elevation: 0,
-      leading: GestureDetector(
-        onTap: () => Get.back(),
-        child: Icon(
-          Icons.arrow_back_ios,
-          size: 20,
-          color: Get.isDarkMode ? Colors.white : Colors.black,
-        ),
-      ),
-      actions: const [
-        CircleAvatar(),
-      ],
-    );
-  }
-
   _getTimeFromUser({required bool isStartTime}) async {
     var pickedTime = await _showTimePicker();
     String formattedTime = pickedTime.format(context);
@@ -320,18 +318,22 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   _addTaskToDb() async {
-    await _taskController.addTask(
-      task: Task(
-        note: _noteController.text,
-        title: _titleController.text,
-        date: DateFormat.yMd().format(_selectedDate),
-        startTime: _startTime,
-        endTime: _endTime,
-        remind: _selectedRemind,
-        repeat: _selectedRepeat,
-        color: _selectedColor,
-        isCompleted: 0,
-      ),
-    );
+    try {
+      await _taskController.addTask(
+        task: Task(
+          note: _noteController.text,
+          title: _titleController.text,
+          date: DateFormat.yMd().format(_selectedDate),
+          startTime: _startTime,
+          endTime: _endTime,
+          remind: _selectedRemind,
+          repeat: _selectedRepeat,
+          color: _selectedColor,
+          isCompleted: 0,
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 }

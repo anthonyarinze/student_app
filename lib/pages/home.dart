@@ -1,6 +1,8 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:student_app/controllers/task_controller.dart';
 import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
@@ -25,6 +27,7 @@ class _HomeState extends State<Home> {
   }
 
   TextEditingController controller = TextEditingController();
+  final _taskController = Get.put(TaskController());
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -42,7 +45,10 @@ class _HomeState extends State<Home> {
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Palette.kLightThemeColor,
-        onPressed: () => Get.to(() => const AddTaskPage()),
+        onPressed: () async {
+          await Get.to(() => const AddTaskPage());
+          _taskController.getTasks();
+        },
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
       body: SingleChildScrollView(
@@ -130,9 +136,43 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            //BuildClassWidget(),
+
+            _showTasks(),
           ],
         ),
+      ),
+    );
+  }
+
+  _showTasks() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: double.infinity,
+      child: Obx(
+        () {
+          return ListView.builder(
+            itemCount: _taskController.taskList.length,
+            itemBuilder: (_, index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                child: SlideAnimation(
+                  child: FadeInAnimation(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print("Tapped");
+                          },
+                          child: Container(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
