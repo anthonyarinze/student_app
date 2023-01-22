@@ -5,8 +5,12 @@ import 'package:get/get.dart';
 import 'package:student_app/controllers/task_controller.dart';
 import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
+import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
+import 'package:student_app/utils/widgets.dart';
+
+import '../models/model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -162,8 +166,12 @@ class _HomeState extends State<Home> {
                         GestureDetector(
                           onTap: () {
                             print("Tapped");
+                            _showBottomSheet(
+                              context,
+                              _taskController.taskList[index],
+                            );
                           },
-                          child: Container(),
+                          child: TaskTile(_taskController.taskList[index]),
                         ),
                       ],
                     ),
@@ -173,6 +181,103 @@ class _HomeState extends State<Home> {
             },
           );
         },
+      ),
+    );
+  }
+
+  _bottomSheetButton({
+    required String label,
+    required Function() onTap,
+    required Color color,
+    // ignore: unused_element
+    bool isClose = false,
+    required BuildContext context,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        height: 55,
+        width: MediaQuery.of(context).size.width * 0.9,
+        decoration: BoxDecoration(
+          color: isClose == true ? Colors.red : color,
+          border: Border.all(
+            width: 2,
+            color: isClose == true ? Colors.red : color,
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: isClose
+                ? TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  )
+                : TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  ).copyWith(
+                    color: Colors.white,
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _showBottomSheet(BuildContext context, Task task) {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.only(top: 4.0),
+        height: task.isCompleted == 1
+            ? MediaQuery.of(context).size.height * 0.24
+            : MediaQuery.of(context).size.height * 0.32,
+        color: Get.isDarkMode ? darkgreyClr : Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 6,
+              width: 120,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300],
+              ),
+            ),
+            const Spacer(),
+            task.isCompleted == 1
+                ? Container()
+                : _bottomSheetButton(
+                    label: "Task Completed",
+                    onTap: () {
+                      Get.back();
+                    },
+                    color: primaryClr,
+                    context: context,
+                  ),
+            const SizedBox(height: 20),
+            _bottomSheetButton(
+              label: "Delete Task",
+              onTap: () {
+                Get.back();
+              },
+              color: Colors.red[300]!,
+              context: context,
+            ),
+            _bottomSheetButton(
+              label: "Close",
+              onTap: () {
+                Get.back();
+              },
+              color: Colors.red[300]!,
+              isClose: true,
+              context: context,
+            ),
+          ],
+        ),
       ),
     );
   }
