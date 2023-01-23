@@ -200,10 +200,14 @@ class _HomeState extends State<Home> {
         height: 55,
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          color: isClose == true ? Colors.red : color,
+          color: isClose == true ? Colors.transparent : color,
           border: Border.all(
             width: 2,
-            color: isClose == true ? Colors.red : color,
+            color: isClose == true
+                ? Get.isDarkMode
+                    ? Colors.grey[600]!
+                    : Colors.grey[300]!
+                : color,
           ),
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -250,23 +254,32 @@ class _HomeState extends State<Home> {
             const Spacer(),
             task.isCompleted == 1
                 ? Container()
+
+                //Task Completed Button
                 : _bottomSheetButton(
                     label: "Task Completed",
                     onTap: () {
+                      _taskController.markTaskCompleted(task.id!);
                       Get.back();
                     },
                     color: primaryClr,
                     context: context,
                   ),
-            const SizedBox(height: 20),
+
+            //Delete Task Button
             _bottomSheetButton(
               label: "Delete Task",
               onTap: () {
+                _taskController.delete(task);
                 Get.back();
               },
               color: Colors.red[300]!,
               context: context,
             ),
+
+            const SizedBox(height: 20),
+
+            //Close BottomSheet Button
             _bottomSheetButton(
               label: "Close",
               onTap: () {
@@ -276,6 +289,7 @@ class _HomeState extends State<Home> {
               isClose: true,
               context: context,
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
