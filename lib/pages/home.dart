@@ -2,6 +2,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:student_app/controllers/task_controller.dart';
 import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
@@ -157,27 +158,47 @@ class _HomeState extends State<Home> {
           return ListView.builder(
             itemCount: _taskController.taskList.length,
             itemBuilder: (_, index) {
-              return AnimationConfiguration.staggeredList(
-                position: index,
-                child: SlideAnimation(
-                  child: FadeInAnimation(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print("Tapped");
-                            _showBottomSheet(
-                              context,
-                              _taskController.taskList[index],
-                            );
-                          },
-                          child: TaskTile(_taskController.taskList[index]),
-                        ),
-                      ],
+              Task task = _taskController.taskList[index];
+              if (task.repeat == 'Daily') {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
+                );
+              }
+              if (task.date == DateFormat.yMd().format(selectedDate)) {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
             },
           );
         },
@@ -322,7 +343,9 @@ class _HomeState extends State<Home> {
           color: Colors.grey,
         ),
         onDateChange: (date) {
-          selectedDate = date;
+          setState(() {
+            selectedDate = date;
+          });
         },
       ),
     );
