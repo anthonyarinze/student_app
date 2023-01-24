@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme.dart';
@@ -401,5 +402,49 @@ class TaskTile extends StatelessWidget {
       default:
         return bluishClr;
     }
+  }
+}
+
+class NotifiedPage extends StatelessWidget {
+  final NotificationResponse? label;
+  const NotifiedPage({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Get.isDarkMode ? Colors.grey[600] : Colors.white,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Get.isDarkMode ? Colors.white : Colors.grey,
+          ),
+        ),
+        title: Text(
+          label.toString().split("|")[0],
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
+      body: Center(
+        child: Container(
+          height: 400,
+          width: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Get.isDarkMode ? Colors.white : Colors.grey,
+          ),
+          child: Center(
+            child: Text(
+              label.toString().split("|")[0],
+              style: TextStyle(
+                color: Get.isDarkMode ? Colors.black : Colors.white,
+                fontSize: 30,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:student_app/models/model.dart';
+import 'package:student_app/utils/widgets.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -57,7 +58,7 @@ class NotifyHelper {
       title,
       body,
       platformChannelSpecifics,
-      payload: 'Default_Sound',
+      payload: 'Theme Changed',
     );
   }
 
@@ -67,9 +68,12 @@ class NotifyHelper {
     } else {
       print("Notification Done");
     }
-    Get.to(
-      () => Container(color: Colors.white),
-    );
+
+    if (payload.toString() == "Theme Changed") {
+      print("Nothing to navigate to");
+    } else {
+      Get.to(() => NotifiedPage(label: payload));
+    }
   }
 
   void requestIOSPermissions() {
@@ -85,23 +89,24 @@ class NotifyHelper {
 
   scheduledNotification(int hour, int minutes, Task task) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        task.id!,
-        task.title,
-        task.note,
-        _convertTime(hour, minutes),
-        //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'Your channel id',
-            'Your channel name',
-            channelDescription: 'Your channel description',
-          ),
+      task.id!,
+      task.title,
+      task.note,
+      _convertTime(hour, minutes),
+      //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'Your channel id',
+          'Your channel name',
+          channelDescription: 'Your channel description',
         ),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-        payload: "{$task.title} + {$task.note}!");
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: "${task.title}|" "${task.note}|",
+    );
   }
 
   tz.TZDateTime _convertTime(int hour, int minutes) {
