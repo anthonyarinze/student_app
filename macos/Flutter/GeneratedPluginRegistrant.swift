@@ -9,7 +9,7 @@ import firebase_auth
 import firebase_core
 import flutter_local_notifications
 import flutter_native_timezone
-import path_provider_macos
+import path_provider_foundation
 import sqflite
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

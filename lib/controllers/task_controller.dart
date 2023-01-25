@@ -16,11 +16,12 @@ class TaskController extends GetxController {
   }
 
   //get all data from table
-  void getTasks() async {
+  Future<void> getTasks() async {
     List<Map<String, dynamic>> tasks = await DBHelper.query();
     taskList.assignAll(
       tasks.map((data) => Task.fromJSON(data)).toList(),
     );
+    print("Getting Tasks");
   }
 
   void delete(Task task) async {

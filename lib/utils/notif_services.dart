@@ -13,6 +13,8 @@ class NotifyHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  //dart function to request permission for notifications
+
   initializeNotification() async {
     _configureLocalTimezone();
     final DarwinInitializationSettings initializationSettingsIOS =
