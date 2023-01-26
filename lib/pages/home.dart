@@ -97,25 +97,6 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            // //Search Bar
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       const BuildSearchBar(),
-            //       IconButton(
-            //         onPressed: () {},
-            //         icon: const Icon(
-            //           Icons.filter_alt_outlined,
-            //           size: 32,
-            //           color: Palette.kLightThemeColor,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
             _addDateBar(),
 
             //Your Classes & See all
@@ -142,6 +123,7 @@ class _HomeState extends State<Home> {
               ),
             ),
 
+            //Tasks
             _showTasks(),
           ],
         ),
@@ -172,15 +154,11 @@ class _HomeState extends State<Home> {
                   position: index,
                   child: SlideAnimation(
                     child: FadeInAnimation(
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              _showBottomSheet(context, task);
-                            },
-                            child: TaskTile(task),
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet(context, task);
+                        },
+                        child: BuildClassWidget(task: task),
                       ),
                     ),
                   ),
@@ -191,15 +169,11 @@ class _HomeState extends State<Home> {
                   position: index,
                   child: SlideAnimation(
                     child: FadeInAnimation(
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              _showBottomSheet(context, task);
-                            },
-                            child: TaskTile(task),
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet(context, task);
+                        },
+                        child: BuildClassWidget(task: task),
                       ),
                     ),
                   ),
@@ -325,15 +299,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container _addDateBar() {
-    // ignore: avoid_unnecessary_containers
-    return Container(
+  SizedBox _addDateBar() {
+    return SizedBox(
       child: DatePicker(
         DateTime.now(),
         height: 100,
         width: 80,
         initialSelectedDate: DateTime.now(),
-        selectionColor: Palette.kLightThemeColor,
+        selectionColor: Get.isDarkMode
+            ? Palette.kLightThemeColorAccent
+            : Palette.kLightThemeColor,
         selectedTextColor: Colors.white,
         dateTextStyle: const TextStyle(
           fontSize: 20,

@@ -56,6 +56,7 @@ class MainPage extends StatelessWidget {
               bottomRight: Radius.circular(20.0),
             ),
           ),
+
           //ListView used to ensure user can scroll if there isn't enough vertical real estate.
           child: ListView(
             //Important: Remove any padding from the ListView.
@@ -120,22 +121,6 @@ class MainPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.info,
-                  color: Colors.grey.shade700,
-                ),
-                title: const Text(
-                  "About",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-                trailing:
-                    const Icon(Icons.arrow_forward_ios, color: Colors.grey),
-              ),
-              ListTile(
-                leading: Icon(
                   Icons.lock,
                   color: Colors.grey.shade700,
                 ),
@@ -164,6 +149,8 @@ class MainPage extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
+                trailing:
+                    const Icon(Icons.arrow_forward_ios, color: Colors.grey),
               ),
             ],
           ),

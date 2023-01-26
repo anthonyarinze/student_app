@@ -89,7 +89,8 @@ class BuildSearchBar extends StatelessWidget {
 }
 
 class BuildClassWidget extends StatelessWidget {
-  BuildClassWidget({super.key});
+  final Task? task;
+  BuildClassWidget({super.key, this.task});
 
   final List<Color> colors = [
     const Color(0xFF499a9f),
@@ -99,56 +100,53 @@ class BuildClassWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _dialogBuilder(context),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 110,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: colors[0].withOpacity(0.6),
-            border: Border(
-              left: BorderSide(
-                color: colors[0],
-                width: 5,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 110,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: _getBGClr(task?.color ?? 0).withOpacity(0.6),
+          border: Border(
+            left: BorderSide(
+              color: _getBGClr(task?.color ?? 0),
+              width: 7,
             ),
           ),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 5.0, 12.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Law Class',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black.withOpacity(0.7),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+        ),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12.0, 12.0, 5.0, 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  task?.title ?? "",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.7),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const Text(
-                    'Second Quiz',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                ),
+                Text(
+                  task?.note ?? "",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    '09:00 - 10:00',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black.withOpacity(0.7),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                ),
+                Text(
+                  "${task?.startTime} - ${task?.endTime}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.7),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -233,11 +231,10 @@ class MyInputField extends StatelessWidget {
                     cursorColor:
                         Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
                     controller: controller,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color:
-                          Get.isDarkMode ? Colors.grey[100] : Colors.grey[400],
+                      color: Colors.black,
                     ),
                     decoration: InputDecoration(
                       hintText: hint,
@@ -390,19 +387,6 @@ class TaskTile extends StatelessWidget {
       ),
     );
   }
-
-  _getBGClr(int no) {
-    switch (no) {
-      case 0:
-        return Palette().taskColors[0];
-      case 1:
-        return Palette().taskColors[1];
-      case 2:
-        return Palette().taskColors[2];
-      default:
-        return Palette().taskColors[1];
-    }
-  }
 }
 
 class NotifiedPage extends StatelessWidget {
@@ -446,5 +430,18 @@ class NotifiedPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+_getBGClr(int no) {
+  switch (no) {
+    case 0:
+      return Palette().taskColors[0];
+    case 1:
+      return Palette().taskColors[1];
+    case 2:
+      return Palette().taskColors[2];
+    default:
+      return Palette().taskColors[1];
   }
 }
