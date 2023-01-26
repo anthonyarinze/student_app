@@ -23,11 +23,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   DateTime selectedDate = DateTime.now();
   var notifyHelper;
-  var taskController = TaskController();
   @override
   void initState() {
     super.initState();
-    taskController.getTasks();
     notifyHelper = NotifyHelper();
     notifyHelper.initializeNotification();
     notifyHelper.requestIOSPermissions();

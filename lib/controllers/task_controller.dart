@@ -11,6 +11,7 @@ class TaskController extends GetxController {
 
   var taskList = <Task>[].obs;
 
+//add task to table
   Future<int> addTask({Task? task}) async {
     return await DBHelper.insert(task);
   }
@@ -24,11 +25,13 @@ class TaskController extends GetxController {
     print("Getting Tasks");
   }
 
+//delete data from table
   void delete(Task task) async {
     DBHelper.delete(task);
     getTasks();
   }
 
+//mark data as complete
   void markTaskCompleted(int id) async {
     await DBHelper.update(id);
     getTasks();

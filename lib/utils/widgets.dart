@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:student_app/theme/palette.dart';
-import 'package:student_app/theme/theme.dart';
 
 import '../models/model.dart';
 
@@ -251,13 +250,13 @@ class MyInputField extends StatelessWidget {
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.background,
                           width: 0,
                         ),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.background,
                           width: 0,
                         ),
                       ),
@@ -380,9 +379,10 @@ class TaskTile extends StatelessWidget {
               child: Text(
                 task!.isCompleted == 1 ? "COMPLETED" : "TODO",
                 style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
@@ -394,13 +394,13 @@ class TaskTile extends StatelessWidget {
   _getBGClr(int no) {
     switch (no) {
       case 0:
-        return bluishClr;
+        return Palette().taskColors[0];
       case 1:
-        return pinkClr;
+        return Palette().taskColors[1];
       case 2:
-        return yellowClr;
+        return Palette().taskColors[2];
       default:
-        return bluishClr;
+        return Palette().taskColors[1];
     }
   }
 }
