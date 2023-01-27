@@ -10,6 +10,7 @@ import 'package:student_app/pages/master.dart';
 import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/firebase_options.dart';
+import 'package:student_app/utils/widgets.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +53,8 @@ class MainPage extends StatelessWidget {
           elevation: 2.0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
+              topRight: Radius.circular(5.0),
+              bottomRight: Radius.circular(5.0),
             ),
           ),
 
@@ -119,21 +120,24 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(
-                  Icons.lock,
-                  color: Colors.grey.shade700,
-                ),
-                title: const Text(
-                  "Change password",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
+              GestureDetector(
+                onTap: () => dialogBuilder(context, "Testing"),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.lock,
+                    color: Colors.grey.shade700,
                   ),
+                  title: const Text(
+                    "Change password",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                    ),
+                  ),
+                  trailing:
+                      const Icon(Icons.arrow_forward_ios, color: Colors.grey),
                 ),
-                trailing:
-                    const Icon(Icons.arrow_forward_ios, color: Colors.grey),
               ),
               ListTile(
                 onTap: () => FirebaseAuth.instance.signOut(),
@@ -167,5 +171,18 @@ class MainPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _changePassword(BuildContext context, String password) {
+    //Create an instance of the current user.
+    User? user = FirebaseAuth.instance.currentUser;
+
+    //Pass in the password to updatePassword.
+    user?.updatePassword(password).then((_) async {
+      await dialogBuilder(context, "Successfully changed password");
+    }).catchError((error) async {
+      await dialogBuilder(context, "Password can't be changed$error");
+      //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
+    });
   }
 }

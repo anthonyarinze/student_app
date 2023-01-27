@@ -155,18 +155,15 @@ class BuildClassWidget extends StatelessWidget {
   }
 }
 
-Future<void> _dialogBuilder(BuildContext context) {
+Future<void> dialogBuilder(BuildContext context, String title) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         elevation: 2.0,
         scrollable: true,
-        title: const Text('Basic dialog title'),
-        content: const Text('A dialog is a type of modal window that\n'
-            'appears in front of app content to\n'
-            'provide critical information, or prompt\n'
-            'for a decision to be made.'),
+        title: const Text('Info'),
+        content: Text(title),
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(
