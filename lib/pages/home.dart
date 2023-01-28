@@ -7,7 +7,6 @@ import 'package:student_app/controllers/task_controller.dart';
 import 'package:student_app/pages/add_task.dart';
 import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme.dart';
-import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
 import 'package:student_app/utils/widgets.dart';
 
@@ -62,25 +61,10 @@ class _HomeState extends State<Home> {
           children: [
             //Top row greeting
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding:
+                  const EdgeInsets.only(left: 15.0, top: 12.0, bottom: 12.0),
               child: Row(
                 children: [
-                  //Theme Switch
-                  IconButton(
-                    onPressed: () {
-                      ThemeService().switchTheme();
-                      notifyHelper.displayNotification(
-                        title: "Theme Changed",
-                        body: Get.isDarkMode
-                            ? "Activated Light Mode"
-                            : "Activated Dark Mode",
-                      );
-                      //notifyHelper.scheduledNotification();
-                    },
-                    icon: const Icon(
-                      Icons.nightlight,
-                    ),
-                  ),
                   const Text(
                     'Good ',
                     style: TextStyle(fontSize: 21),
@@ -96,9 +80,8 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-
+            //Date row
             _addDateBar(),
-
             //Your Classes & See all
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),
@@ -122,7 +105,6 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-
             //Tasks
             _showTasks(),
           ],
@@ -243,7 +225,13 @@ class _HomeState extends State<Home> {
         height: task.isCompleted == 1
             ? MediaQuery.of(context).size.height * 0.24
             : MediaQuery.of(context).size.height * 0.32,
-        color: Get.isDarkMode ? darkgreyClr : Colors.white,
+        decoration: BoxDecoration(
+          color: Get.isDarkMode ? darkgreyClr : Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(5.0),
+            topRight: Radius.circular(5.0),
+          ),
+        ),
         child: Column(
           children: [
             Container(
@@ -306,9 +294,7 @@ class _HomeState extends State<Home> {
         height: 100,
         width: 80,
         initialSelectedDate: DateTime.now(),
-        selectionColor: Get.isDarkMode
-            ? Palette.kLightThemeColorAccent
-            : Palette.kLightThemeColor,
+        selectionColor: Palette.kLightThemeColor,
         selectedTextColor: Colors.white,
         dateTextStyle: const TextStyle(
           fontSize: 20,

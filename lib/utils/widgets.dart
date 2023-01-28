@@ -124,9 +124,8 @@ class BuildClassWidget extends StatelessWidget {
               children: [
                 Text(
                   task?.title ?? "",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
-                    color: Colors.black.withOpacity(0.7),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -140,9 +139,8 @@ class BuildClassWidget extends StatelessWidget {
                 ),
                 Text(
                   "${task?.startTime} - ${task?.endTime}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
-                    color: Colors.black.withOpacity(0.7),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -231,7 +229,6 @@ class MyInputField extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black,
                     ),
                     decoration: InputDecoration(
                       hintText: hint,

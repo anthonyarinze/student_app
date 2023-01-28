@@ -11,6 +11,7 @@ import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/firebase_options.dart';
 import 'package:student_app/utils/widgets.dart';
+import 'package:student_app/utils/notif_services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
 
 class MainPage extends StatelessWidget {
   final _taskController = Get.put(TaskController());
+  final notifyHelper = NotifyHelper();
 
   MainPage({super.key});
 
@@ -122,39 +124,51 @@ class MainPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () => dialogBuilder(context, "Testing"),
-                child: ListTile(
+                child: const ListTile(
                   leading: Icon(
                     Icons.lock,
-                    color: Colors.grey.shade700,
                   ),
-                  title: const Text(
+                  title: Text(
                     "Change password",
                     style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                     ),
                   ),
-                  trailing:
-                      const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+                  trailing: Icon(Icons.arrow_forward_ios),
                 ),
               ),
               ListTile(
                 onTap: () => FirebaseAuth.instance.signOut(),
-                leading: Icon(
-                  Icons.logout_rounded,
-                  color: Colors.grey.shade700,
-                ),
+                leading: const Icon(Icons.logout_rounded),
                 title: const Text(
                   "Sign Out",
                   style: TextStyle(
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
                   ),
                 ),
-                trailing:
-                    const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+                trailing: const Icon(Icons.arrow_forward_ios),
+              ),
+              const SizedBox(height: 350),
+              //Theme Switch
+              ListTile(
+                onTap: () {
+                  ThemeService().switchTheme();
+                  notifyHelper.displayNotification(
+                    title: "Theme Changed",
+                    body: Get.isDarkMode
+                        ? "Activated Light Mode"
+                        : "Activated Dark Mode",
+                  );
+                },
+                leading: const Icon(
+                  Icons.nightlight,
+                ),
+                title: const Text(
+                  "Switch Theme",
+                  style: TextStyle(fontSize: 17),
+                ),
               ),
             ],
           ),
