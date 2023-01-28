@@ -427,6 +427,41 @@ class NotifiedPage extends StatelessWidget {
   }
 }
 
+class BuildProfileListTile extends StatelessWidget {
+  final Function() onTap;
+  final Icon leadingIcon;
+  final String title;
+  final Icon trailingIcon;
+
+  const BuildProfileListTile({
+    super.key,
+    required this.onTap,
+    required this.leadingIcon,
+    required this.title,
+    required this.trailingIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Palette.kDarkListTileColor,
+          border: Border.symmetric(
+            horizontal: BorderSide(width: 1.0, color: Colors.grey),
+          ),
+        ),
+        child: ListTile(
+          leading: leadingIcon,
+          title: Text(title, style: const TextStyle(fontSize: 20)),
+          trailing: trailingIcon,
+        ),
+      ),
+    );
+  }
+}
+
 _getBGClr(int no) {
   switch (no) {
     case 0:
