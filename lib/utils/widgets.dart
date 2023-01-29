@@ -153,7 +153,8 @@ class BuildClassWidget extends StatelessWidget {
   }
 }
 
-Future<void> dialogBuilder(BuildContext context, String title) {
+Future<void> dialogBuilder(
+    BuildContext context, String title, Function() func) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -164,14 +165,19 @@ Future<void> dialogBuilder(BuildContext context, String title) {
         content: Text(title),
         actions: <Widget>[
           TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Close'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              onPressed: func,
+              child: const Text('Yes')),
+          TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('No')),
         ],
       );
     },
@@ -446,9 +452,10 @@ class BuildProfileListTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        decoration: const BoxDecoration(
-          color: Palette.kDarkListTileColor,
-          border: Border.symmetric(
+        decoration: BoxDecoration(
+          color:
+              Get.isDarkMode ? Palette.kDarkListTileColor : Colors.transparent,
+          border: const Border.symmetric(
             horizontal: BorderSide(width: 1.0, color: Colors.grey),
           ),
         ),

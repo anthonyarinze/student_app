@@ -77,11 +77,11 @@ class _SignUpState extends State<SignUp> {
             ),
 
             //Create text
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 12, 0, 0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(30, 12, 0, 0),
               child: Text(
                 "Create an account to enjoy our services with the most up-to-date features :)",
-                style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
+                style: TextStyle(fontSize: 16),
               ),
             ),
 
@@ -156,10 +156,9 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.fromLTRB(80, 20, 10, 0),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Already have an account?",
                     style: TextStyle(
-                      color: Colors.grey.shade700,
                       fontSize: 16,
                     ),
                   ),

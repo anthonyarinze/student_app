@@ -19,7 +19,7 @@ class _MasterState extends State<Master> {
     const Home(),
     const Calendar(),
     const Metric(),
-    const Profile(),
+    Profile(),
   ];
 
   @override

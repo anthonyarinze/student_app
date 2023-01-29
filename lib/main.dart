@@ -10,7 +10,6 @@ import 'package:student_app/pages/master.dart';
 import 'package:student_app/theme/theme.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/firebase_options.dart';
-import 'package:student_app/utils/widgets.dart';
 import 'package:student_app/utils/notif_services.dart';
 
 Future<void> main() async {
@@ -51,128 +50,6 @@ class MainPage extends StatelessWidget {
     _taskController.getTasks();
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(
-          elevation: 2.0,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(5.0),
-              bottomRight: Radius.circular(5.0),
-            ),
-          ),
-
-          //ListView used to ensure user can scroll if there isn't enough vertical real estate.
-          child: ListView(
-            //Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: [
-              const SizedBox(height: 25),
-              DrawerHeader(
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(40)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(13, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Color(0xFF26005f),
-                          radius: 40,
-                          child: Icon(
-                            Icons.person,
-                            size: 45,
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(0, 20, 80, 0),
-                                child: Text(
-                                  "John Doe",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "john_doe@gmail.com",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.grey.shade700,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => dialogBuilder(context, "Testing"),
-                child: const ListTile(
-                  leading: Icon(
-                    Icons.lock,
-                  ),
-                  title: Text(
-                    "Change password",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-              ListTile(
-                onTap: () => FirebaseAuth.instance.signOut(),
-                leading: const Icon(Icons.logout_rounded),
-                title: const Text(
-                  "Sign Out",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-              const SizedBox(height: 350),
-              //Theme Switch
-              ListTile(
-                onTap: () {
-                  ThemeService().switchTheme();
-                  notifyHelper.displayNotification(
-                    title: "Theme Changed",
-                    body: Get.isDarkMode
-                        ? "Activated Light Mode"
-                        : "Activated Dark Mode",
-                  );
-                },
-                leading: const Icon(
-                  Icons.nightlight,
-                ),
-                title: const Text(
-                  "Switch Theme",
-                  style: TextStyle(fontSize: 17),
-                ),
-              ),
-            ],
-          ),
-        ),
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -185,18 +62,5 @@ class MainPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _changePassword(BuildContext context, String password) {
-    //Create an instance of the current user.
-    User? user = FirebaseAuth.instance.currentUser;
-
-    //Pass in the password to updatePassword.
-    user?.updatePassword(password).then((_) async {
-      await dialogBuilder(context, "Successfully changed password");
-    }).catchError((error) async {
-      await dialogBuilder(context, "Password can't be changed$error");
-      //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
-    });
   }
 }

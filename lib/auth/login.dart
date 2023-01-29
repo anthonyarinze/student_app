@@ -78,11 +78,11 @@ class _LoginState extends State<Login> {
               ),
 
               //Create text
-              Padding(
-                padding: const EdgeInsets.fromLTRB(22, 12, 0, 0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(22, 12, 0, 0),
                 child: Text(
                   "Log into your account to enjoy exclsusive features and many more :)",
-                  style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
               //Email Text
@@ -131,10 +131,9 @@ class _LoginState extends State<Login> {
                         ),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Forgot password?',
-                      style:
-                          TextStyle(fontSize: 18, color: Colors.grey.shade700),
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                 ),
@@ -147,7 +146,6 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width,
                   child: TextButton(
                     onPressed: () {
-                      //TODO: Add Functionality
                       signin();
                     },
                     style: ButtonStyle(
@@ -237,10 +235,9 @@ class _LoginState extends State<Login> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "New to Smart Study?",
                       style: TextStyle(
-                        color: Colors.grey.shade700,
                         fontSize: 16,
                       ),
                     ),
