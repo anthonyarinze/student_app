@@ -21,15 +21,18 @@ class Profile extends StatelessWidget {
         body: Column(
           children: [
             const Center(
-              child: CircleAvatar(
-                radius: 75,
-                backgroundColor: Palette.kLightThemeColor,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Palette.kDarkGreyColor,
-                    child: Icon(Icons.camera_alt, size: 20.0),
+              child: Padding(
+                padding: EdgeInsets.only(top: 15.0),
+                child: CircleAvatar(
+                  radius: 75,
+                  backgroundColor: Palette.kLightThemeColor,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Palette.kDarkGreyColor,
+                      child: Icon(Icons.camera_alt, size: 20.0),
+                    ),
                   ),
                 ),
               ),
