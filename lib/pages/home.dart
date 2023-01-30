@@ -35,12 +35,12 @@ class _HomeState extends State<Home> {
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
-      return 'Morning';
+      return 'morning';
     }
     if (hour < 17) {
-      return 'Afternoon';
+      return 'afternoon';
     }
-    return 'Evening';
+    return 'evening';
   }
 
   @override
@@ -62,20 +62,21 @@ class _HomeState extends State<Home> {
             //Top row greeting
             Padding(
               padding:
-                  const EdgeInsets.only(left: 15.0, top: 12.0, bottom: 12.0),
+                  const EdgeInsets.only(left: 15.0, top: 18.0, bottom: 20.0),
               child: Row(
                 children: [
                   const Text(
                     'Good ',
-                    style: TextStyle(fontSize: 21),
+                    style: TextStyle(fontSize: 19),
                   ),
                   Text(
                     greeting(),
-                    style: const TextStyle(fontSize: 21),
+                    style: const TextStyle(fontSize: 19),
                   ),
                   const Text(
-                    ', Anthony',
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                    ", here's your schedule...",
+                    style: TextStyle(
+                        fontSize: 19, overflow: TextOverflow.ellipsis),
                   ),
                 ],
               ),
@@ -83,26 +84,17 @@ class _HomeState extends State<Home> {
             //Date row
             _addDateBar(),
             //Your Classes & See all
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 30, 15, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Your Classes',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(15, 30, 15, 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Your Classes',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    'See all',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
             //Tasks

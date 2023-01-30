@@ -90,13 +90,7 @@ class BuildSearchBar extends StatelessWidget {
 
 class BuildClassWidget extends StatelessWidget {
   final Task? task;
-  BuildClassWidget({super.key, this.task});
-
-  final List<Color> colors = [
-    const Color(0xFF499a9f),
-    const Color(0xFF41659a),
-    const Color(0xFFa53f7e),
-  ];
+  const BuildClassWidget({super.key, this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -461,7 +455,11 @@ class BuildProfileListTile extends StatelessWidget {
         ),
         child: ListTile(
           leading: leadingIcon,
-          title: Text(title, style: const TextStyle(fontSize: 20)),
+          title: Text(title,
+              style: const TextStyle(
+                fontSize: 20,
+                overflow: TextOverflow.ellipsis,
+              )),
           trailing: trailingIcon,
         ),
       ),

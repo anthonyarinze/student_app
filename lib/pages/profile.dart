@@ -9,8 +9,8 @@ import 'package:student_app/utils/widgets.dart';
 
 class Profile extends StatelessWidget {
   final notifyHelper = NotifyHelper();
-
-  Profile({super.key, this.backgroundImage});
+  final User? user;
+  Profile({super.key, this.backgroundImage, this.user});
 
   final ImageProvider? backgroundImage;
   @override
@@ -22,7 +22,7 @@ class Profile extends StatelessWidget {
           children: [
             const Center(
               child: Padding(
-                padding: EdgeInsets.only(top: 15.0),
+                padding: EdgeInsets.only(top: 16.0),
                 child: CircleAvatar(
                   radius: 75,
                   backgroundColor: Palette.kLightThemeColor,
@@ -75,9 +75,15 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   BuildProfileListTile(
-                    onTap: () {},
-                    leadingIcon: const Icon(Icons.password_outlined, size: 25),
-                    title: 'Password Reset',
+                    onTap: () => dialogBuilder(
+                      context,
+                      'Are you sure you want to delete your account? '
+                      'This will delete all data related to your account on our end.',
+                      () async => await user?.delete(),
+                    ),
+                    leadingIcon:
+                        const Icon(Icons.delete_forever_outlined, size: 25),
+                    title: 'Delete Account',
                     trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
                   ),
                   const Padding(
@@ -101,7 +107,8 @@ class Profile extends StatelessWidget {
                             : "Activated Dark Mode",
                       );
                     },
-                    leadingIcon: const Icon(Icons.nightlight, size: 25),
+                    leadingIcon:
+                        const Icon(Icons.nightlight_outlined, size: 25),
                     title: 'Change Theme',
                     trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
                   ),
@@ -125,18 +132,5 @@ class Profile extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _changePassword(BuildContext context, String password) {
-    //Create an instance of the current user.
-    User? user = FirebaseAuth.instance.currentUser;
-
-    //Pass in the password to updatePassword.
-    user?.updatePassword(password).then((_) async {
-      await dialogBuilder(context, "Successfully changed password", () {});
-    }).catchError((error) async {
-      await dialogBuilder(context, "Password can't be changed$error", () {});
-      //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
-    });
   }
 }
