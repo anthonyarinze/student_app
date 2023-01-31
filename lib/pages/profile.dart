@@ -22,7 +22,7 @@ class Profile extends StatelessWidget {
           children: [
             const Center(
               child: Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: EdgeInsets.only(top: 15.0),
                 child: CircleAvatar(
                   radius: 75,
                   backgroundColor: Palette.kLightThemeColor,
