@@ -115,6 +115,9 @@ class _HomeState extends State<Home> {
             itemCount: _taskController.taskList.length,
             itemBuilder: (_, index) {
               Task task = _taskController.taskList[index];
+              DateTime formattedDate =
+                  DateFormat.yMd().parse(task.date.toString());
+
               //Daily check
               if (task.repeat == 'Daily') {
                 DateTime date =
@@ -140,7 +143,9 @@ class _HomeState extends State<Home> {
                 );
               }
               //Weekly check
-              if (task.repeat == 'Weekly') {
+              if (task.repeat == 'Weekly' &&
+                  selectedDate.isAtSameMomentAs(formattedDate)) {
+                print("Weekly check working 123");
                 DateTime date =
                     DateFormat.jm().parse(task.startTime.toString());
                 var myTime = DateFormat("HH:mm").format(date);
