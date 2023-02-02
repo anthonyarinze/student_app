@@ -8,10 +8,10 @@ class ResetComplete extends StatefulWidget {
   const ResetComplete({Key? key}) : super(key: key);
 
   @override
-  _ResetCompleteState createState() => _ResetCompleteState();
+  ResetCompleteState createState() => ResetCompleteState();
 }
 
-class _ResetCompleteState extends State<ResetComplete> {
+class ResetCompleteState extends State<ResetComplete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -9,8 +9,7 @@ import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme.dart';
 import 'package:student_app/utils/notif_services.dart';
 import 'package:student_app/utils/widgets.dart';
-
-import '../models/model.dart';
+import 'package:student_app/models/model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,13 +20,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   DateTime selectedDate = DateTime.now();
-  var notifyHelper;
+  var notifyHelper = NotifyHelper();
   @override
   void initState() {
     super.initState();
     notifyHelper = NotifyHelper();
     notifyHelper.initializeNotification();
     notifyHelper.requestIOSPermissions();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   TextEditingController controller = TextEditingController();
@@ -144,29 +149,24 @@ class _HomeState extends State<Home> {
               }
               //Weekly check
               if (task.repeat == 'Weekly' &&
-                  selectedDate.isAtSameMomentAs(formattedDate)) {
+                  selectedDate == formattedDate.add(const Duration(days: 7))) {
                 print("Weekly check working 123");
-                DateTime date =
-                    DateFormat.jm().parse(task.startTime.toString());
-                var myTime = DateFormat("HH:mm").format(date);
-                notifyHelper.scheduledNotification(
-                  int.parse(myTime.toString().split(":")[0]),
-                  int.parse(myTime.toString().split(":")[1]),
-                  task,
-                );
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  child: SlideAnimation(
-                    child: FadeInAnimation(
-                      child: GestureDetector(
-                        onTap: () {
-                          _showBottomSheet(context, task);
-                        },
-                        child: BuildClassWidget(task: task),
+
+                {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    child: SlideAnimation(
+                      child: FadeInAnimation(
+                        child: GestureDetector(
+                          onTap: () {
+                            _showBottomSheet(context, task);
+                          },
+                          child: BuildClassWidget(task: task),
+                        ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                }
               }
               if (task.date == DateFormat.yMd().format(selectedDate)) {
                 return AnimationConfiguration.staggeredList(

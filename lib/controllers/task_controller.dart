@@ -22,7 +22,6 @@ class TaskController extends GetxController {
     taskList.assignAll(
       tasks.map((data) => Task.fromJSON(data)).toList(),
     );
-    print("Getting Tasks");
   }
 
 //delete data from table

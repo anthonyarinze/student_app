@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:student_app/theme/palette.dart';
-
-import '../models/model.dart';
+import 'package:student_app/models/model.dart';
 
 class BuildTextFormField extends StatelessWidget {
   const BuildTextFormField({
