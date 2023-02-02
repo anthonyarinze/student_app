@@ -117,6 +117,7 @@ class _HomeState extends State<Home> {
       child: Obx(
         () {
           return ListView.builder(
+            scrollDirection: Axis.vertical,
             itemCount: _taskController.taskList.length,
             itemBuilder: (_, index) {
               Task task = _taskController.taskList[index];
@@ -149,24 +150,37 @@ class _HomeState extends State<Home> {
               }
               //Weekly check
               if (task.repeat == 'Weekly' &&
-                  selectedDate == formattedDate.add(const Duration(days: 7))) {
-                print("Weekly check working 123");
-
-                {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    child: SlideAnimation(
-                      child: FadeInAnimation(
-                        child: GestureDetector(
-                          onTap: () {
-                            _showBottomSheet(context, task);
-                          },
-                          child: BuildClassWidget(task: task),
-                        ),
+                  formattedDate.weekday == selectedDate.weekday) {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet(context, task);
+                        },
+                        child: BuildClassWidget(task: task),
                       ),
                     ),
-                  );
-                }
+                  ),
+                );
+              }
+              //Monthly check
+              if (task.repeat == 'Monthly' &&
+                  formattedDate.day == selectedDate.day) {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet(context, task);
+                        },
+                        child: BuildClassWidget(task: task),
+                      ),
+                    ),
+                  ),
+                );
               }
               if (task.date == DateFormat.yMd().format(selectedDate)) {
                 return AnimationConfiguration.staggeredList(
