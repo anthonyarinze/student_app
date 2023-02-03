@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_app/auth/login.dart';
-import 'package:student_app/theme/palette.dart';
 import 'package:student_app/theme/theme_service.dart';
 import 'package:student_app/utils/notif_services.dart';
 import 'package:student_app/utils/widgets.dart';
@@ -25,14 +24,10 @@ class Profile extends StatelessWidget {
                 padding: EdgeInsets.only(top: 15.0),
                 child: CircleAvatar(
                   radius: 75,
-                  backgroundColor: Palette.kLightThemeColor,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Palette.kDarkGreyColor,
-                      child: Icon(Icons.camera_alt, size: 20.0),
-                    ),
+                  backgroundColor: Colors.transparent,
+                  child: Icon(
+                    Icons.account_box,
+                    size: 100,
                   ),
                 ),
               ),
@@ -121,7 +116,7 @@ class Profile extends StatelessWidget {
                         Get.to(() => const Login());
                       },
                     ),
-                    leadingIcon: const Icon(Icons.email_outlined, size: 25),
+                    leadingIcon: const Icon(Icons.logout_outlined, size: 25),
                     title: 'Sign Out',
                     trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
                   ),
