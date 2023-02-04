@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:student_app/pages/calendar.dart';
 import 'package:student_app/pages/home.dart';
 import 'package:student_app/pages/metric.dart';
 import 'package:student_app/pages/profile.dart';
@@ -17,7 +16,6 @@ class _MasterState extends State<Master> {
   int index = 1;
   final screens = [
     const Home(),
-    const Calendar(),
     const Metric(),
     Profile(),
   ];
@@ -47,10 +45,6 @@ class _MasterState extends State<Master> {
                 GButton(
                     icon: Icons.home_rounded,
                     text: 'Home',
-                    iconColor: Colors.white),
-                GButton(
-                    icon: Icons.calendar_month_rounded,
-                    text: 'Calendar',
                     iconColor: Colors.white),
                 GButton(
                     icon: Icons.calculate_rounded,

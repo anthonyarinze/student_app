@@ -99,7 +99,7 @@ class BuildClassWidget extends StatelessWidget {
         height: 110,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: _getBGClr(task?.color ?? 0).withOpacity(0.6),
+          color: _getBGClr(task?.color ?? 0).withOpacity(0.4),
           border: Border(
             left: BorderSide(
               color: _getBGClr(task?.color ?? 0),
