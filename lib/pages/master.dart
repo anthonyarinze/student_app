@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:student_app/pages/home.dart';
-import 'package:student_app/pages/metric.dart';
 import 'package:student_app/pages/profile.dart';
 import 'package:student_app/theme/palette.dart';
 
@@ -16,7 +15,6 @@ class _MasterState extends State<Master> {
   int index = 1;
   final screens = [
     const Home(),
-    const Metric(),
     Profile(),
   ];
 
@@ -45,10 +43,6 @@ class _MasterState extends State<Master> {
                 GButton(
                     icon: Icons.home_rounded,
                     text: 'Home',
-                    iconColor: Colors.white),
-                GButton(
-                    icon: Icons.calculate_rounded,
-                    text: 'Metrics',
                     iconColor: Colors.white),
                 GButton(
                     icon: Icons.person_rounded,

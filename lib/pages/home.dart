@@ -260,7 +260,7 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.only(top: 4.0),
         height: task.isCompleted == 1
             ? MediaQuery.of(context).size.height * 0.24
-            : MediaQuery.of(context).size.height * 0.32,
+            : MediaQuery.of(context).size.height * 0.38,
         decoration: BoxDecoration(
           color: Get.isDarkMode ? darkgreyClr : Colors.white,
           borderRadius: const BorderRadius.only(

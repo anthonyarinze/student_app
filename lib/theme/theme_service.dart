@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class ThemeService {
+class ThemeService extends ChangeNotifier {
   final _box = GetStorage();
   final _key = 'isDarkMode';
 
@@ -13,5 +13,6 @@ class ThemeService {
   void switchTheme() {
     Get.changeThemeMode(_loadThemeFromBox() ? ThemeMode.light : ThemeMode.dark);
     _saveThemeToBox(!_loadThemeFromBox());
+    notifyListeners();
   }
 }

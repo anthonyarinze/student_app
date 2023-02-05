@@ -43,9 +43,10 @@ class Profile extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.only(left: 15.0, bottom: 10.0),
+                    padding:
+                        EdgeInsets.only(left: 15.0, bottom: 10.0, top: 15.0),
                     child: Text(
-                      'Personal',
+                      'App Settings',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -53,9 +54,27 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   BuildProfileListTile(
-                    onTap: () {},
-                    leadingIcon: const Icon(Icons.email_outlined, size: 25),
-                    title: 'Email Address',
+                    onTap: () {
+                      ThemeService().switchTheme();
+                    },
+                    leadingIcon: Icon(
+                      Get.isDarkMode ? Icons.nightlight_outlined : Icons.sunny,
+                      size: 25,
+                    ),
+                    title: 'Change Theme',
+                    trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
+                  ),
+                  BuildProfileListTile(
+                    onTap: () => dialogBuilder(
+                      context,
+                      'Are you sure you want to sign out?',
+                      () async {
+                        await FirebaseAuth.instance.signOut();
+                        Get.to(() => const Login());
+                      },
+                    ),
+                    leadingIcon: const Icon(Icons.logout_outlined, size: 25),
+                    title: 'Sign Out',
                     trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
                   ),
                   const Padding(
@@ -79,45 +98,6 @@ class Profile extends StatelessWidget {
                     leadingIcon:
                         const Icon(Icons.delete_forever_outlined, size: 25),
                     title: 'Delete Account',
-                    trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
-                  ),
-                  const Padding(
-                    padding:
-                        EdgeInsets.only(left: 15.0, bottom: 10.0, top: 15.0),
-                    child: Text(
-                      'App Settings',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  BuildProfileListTile(
-                    onTap: () {
-                      ThemeService().switchTheme();
-                      notifyHelper.displayNotification(
-                        title: "Theme Changed",
-                        body: Get.isDarkMode
-                            ? "Activated Light Mode"
-                            : "Activated Dark Mode",
-                      );
-                    },
-                    leadingIcon:
-                        const Icon(Icons.nightlight_outlined, size: 25),
-                    title: 'Change Theme',
-                    trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
-                  ),
-                  BuildProfileListTile(
-                    onTap: () => dialogBuilder(
-                      context,
-                      'Are you sure you want to sign out?',
-                      () async {
-                        await FirebaseAuth.instance.signOut();
-                        Get.to(() => const Login());
-                      },
-                    ),
-                    leadingIcon: const Icon(Icons.logout_outlined, size: 25),
-                    title: 'Sign Out',
                     trailingIcon: const Icon(Icons.arrow_forward_ios, size: 20),
                   ),
                 ],
