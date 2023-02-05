@@ -117,24 +117,33 @@ class BuildClassWidget extends StatelessWidget {
               children: [
                 Text(
                   task?.title ?? "",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     overflow: TextOverflow.ellipsis,
+                    decoration: task!.isCompleted == 1
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
                 Text(
                   task?.note ?? "",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     overflow: TextOverflow.ellipsis,
+                    decoration: task!.isCompleted == 1
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
                 Text(
                   "${task?.startTime} - ${task?.endTime}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     overflow: TextOverflow.ellipsis,
+                    decoration: task!.isCompleted == 1
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
               ],

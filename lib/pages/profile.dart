@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
               child: Center(
-                child: Text('John Doe', style: TextStyle(fontSize: 25)),
+                child: Text('Account', style: TextStyle(fontSize: 25)),
               ),
             ),
             Expanded(

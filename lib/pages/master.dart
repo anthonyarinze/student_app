@@ -29,7 +29,7 @@ class _MasterState extends State<Master> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             child: GNav(
-              gap: 8.0,
+              gap: 30.0,
               padding: const EdgeInsets.all(16.0),
               activeColor: Colors.white,
               tabBackgroundColor: Palette.kLightThemeColorAccent,
