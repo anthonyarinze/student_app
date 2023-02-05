@@ -1,10 +1,12 @@
+import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:student_app/models/model.dart';
 
-class DBHelper {
+class DBHelper implements StackTrace {
   static Database? _db;
   static const int _version = 1;
   static const String _tableName = "tasks";
+  static var logger = Logger();
 
   static Future<void> initDb() async {
     if (_db != null) {
@@ -16,7 +18,6 @@ class DBHelper {
         path,
         version: _version,
         onCreate: (db, version) {
-          print("Creating a new one");
           return db.execute(
             "CREATE TABLE $_tableName("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -29,19 +30,17 @@ class DBHelper {
         },
       );
     } catch (e) {
-      print(e);
+      logger.log(Level.verbose, e.toString());
     }
   }
 
 //insert data into table
   static Future<int> insert(Task? task) async {
-    print("Insert function called");
     return await _db?.insert(_tableName, task!.toJSON()) ?? 1;
   }
 
 //query data from table
   static Future<List<Map<String, dynamic>>> query() async {
-    print("Query function called");
     return await _db!.query(_tableName);
   }
 

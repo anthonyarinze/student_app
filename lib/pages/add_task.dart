@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:student_app/controllers/task_controller.dart';
 import 'package:student_app/models/model.dart';
 import 'package:student_app/theme/palette.dart';
@@ -30,6 +31,16 @@ class _AddTaskPageState extends State<AddTaskPage> {
   List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
 
   int _selectedColor = 0;
+
+  var logger = Logger();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _noteController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -228,7 +239,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 onTap: () {
                   setState(() {
                     _selectedColor = index;
-                    print(_selectedColor);
                   });
                 },
                 child: Padding(
@@ -276,7 +286,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
     var pickedTime = await _showTimePicker();
     String formattedTime = pickedTime.format();
     if (pickedTime == null) {
-      print("Time Canceled");
     } else if (isStartTime == true) {
       setState(() {
         _startTime = formattedTime;
@@ -334,7 +343,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
         ),
       );
     } catch (e) {
-      print(e);
+      logger.log(Level.verbose, e.toString());
     }
   }
 }

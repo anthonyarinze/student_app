@@ -40,9 +40,6 @@ class NotifyHelper {
   }
 
   displayNotification({required String title, required String body}) async {
-    print(
-      Get.isDarkMode ? "Activated Light Mode" : "Activated Dark Mode",
-    );
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       'Your Channel ID',
       'Your Channel Name',
@@ -66,13 +63,9 @@ class NotifyHelper {
 
   Future selectNotification(NotificationResponse? payload) async {
     if (payload != null) {
-      print("Notification Payload: $payload");
-    } else {
-      print("Notification Done");
-    }
+    } else {}
 
     if (payload.toString() == "Theme Changed") {
-      print("Nothing to navigate to");
     } else {
       Get.to(() => NotifiedPage(label: payload));
     }
